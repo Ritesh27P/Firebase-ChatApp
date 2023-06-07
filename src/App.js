@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Login from './Login';
+import MessageSender from './MessageSender';
+import MessageReceiver from './MessageReceiver';
 
-function App() {
+const App = () => {
+  const [isLogin, setIsLogin] = useState(false);
+  const [user, setUser] = useState('')
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className="flex flex-col h-screen">
+      <header className="bg-gray-800 text-white py-4 px-6 flex justify-between">
+        <h1 className="text-2xl font-bold">Chat App</h1>
+        {isLogin ? user : <Login setIsLogin={setIsLogin} setUser={setUser} />}
       </header>
+      <div className="flex-1 overflow-y-auto flex flex-col-reverse">
+        <div className="flex flex-col gap-2 p-4">
+          <MessageReceiver user={user} />
+        </div>
+      </div>
+      {isLogin && <MessageSender />}
     </div>
   );
-}
+};
 
 export default App;
